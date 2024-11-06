@@ -7,5 +7,5 @@ require "vendor/autoload.php";
 
 new Setup();
 
-$fileSystem = new Filesystem("data/");
+$fileSystem = new FileSystem("data/");
 $fileSystem->read("test.txt");
