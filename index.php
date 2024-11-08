@@ -8,4 +8,5 @@ require "vendor/autoload.php";
 new Setup();
 
 $fileSystem = new FileSystem("data/");
-$fileSystem->read("test.txt");
+$fileSystem->readAsStream("test.txt");
+

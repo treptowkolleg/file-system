@@ -11,9 +11,9 @@ class FileSystem
         $this->path = ROOT_PATH.str_replace("/", DIRECTORY_SEPARATOR, $path);
     }
 
-    public function read(string $file): void
+    public function readAsStream(string $file): void
     {
-        $handle = fopen($this->path.$file, "r");
+        $handle = fopen($this->path.$file, "rb");
 
         if(!$handle) exit("Kann Datei nicht öffnen: ".$file);
 
