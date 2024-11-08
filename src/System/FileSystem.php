@@ -10,7 +10,7 @@ class FileSystem
     public function __construct(string $path) {
 
         if(!is_dir($dirPath = ROOT_PATH.$path)){
-            if(!mkdir($dirPath)) {
+            if(!mkdir($dirPath, recursive: true)) {
                 exit("Fehler beim Erstellen des Ordners $dirPath");
             }
         }
