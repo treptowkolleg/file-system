@@ -25,6 +25,17 @@ class FileSystem
         fclose($handle);
     }
 
-    // TODO: Methode zum Schreiben von Daten in eine Datei entwickeln.
+    public function getFileAsArray( string $file): array
+    {
+        $filePath = $this->path.$file;
+
+        if(!file_exists($filePath)) return [];
+        return file($filePath, FILE_IGNORE_NEW_LINES);
+    }
+
+    public function putFile(string $file, array $content = []): void
+    {
+        file_put_contents($this->path.$file, implode("\n", $content) );
+    }
 
 }

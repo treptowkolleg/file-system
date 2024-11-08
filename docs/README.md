@@ -8,6 +8,7 @@ wenn man beispielsweise Spielstände speichern oder laden möchte.
 - [Dateisystem](https://www.php.net/manual/en/ref.filesystem.php)
 - [Ordner](https://www.php.net/manual/en/ref.dir.php)
 - [Konstanten](https://www.php.net/manual/en/reserved.constants.php)
+- [Mehr Konstanten](https://www.php.net/manual/en/dir.constants.php)
 
 ## Stream, String oder Array
 
