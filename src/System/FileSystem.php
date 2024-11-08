@@ -8,6 +8,15 @@ class FileSystem
     private string $path;
 
     public function __construct(string $path) {
+
+        if(!is_dir($dirPath = ROOT_PATH.$path)){
+            if(!mkdir($dirPath)) {
+                exit("Fehler beim Erstellen des Ordners $dirPath");
+            }
+        }
+        // Slash ans Ende anfügen, falls nicht vorhanden
+        $path = rtrim($path,"/").'/';
+
         $this->path = ROOT_PATH.str_replace("/", DIRECTORY_SEPARATOR, $path);
     }
 

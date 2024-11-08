@@ -21,14 +21,6 @@ class GameSystem
      */
     public function __construct(string $saveDir = "data/game", string $file = "save.txt")
     {
-        if(!is_dir($dirPath = ROOT_PATH.$saveDir)){
-            if(!mkdir($dirPath)) {
-                exit("Fehler beim Erstellen des Ordners $dirPath");
-            }
-        }
-        // Slash ans Ende anfügen, falls nicht vorhanden
-        $saveDir = rtrim($saveDir,"/").'/';
-
         $this->fileSystem = new FileSystem($saveDir);
         $this->saveFile = $file;
     }
