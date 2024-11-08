@@ -15,9 +15,7 @@ new Setup();
 // Dient dem Laden und Speichern des Spiels
 $gameSystem = new GameSystem();
 
-if(!$game = $gameSystem->loadGame()) {
-    $game = new Game();
-}
+if(!$game = $gameSystem->loadGame()) $game = new Game();
 
 // Pfad der Spielstände ausgeben:
 echo sprintf("Speicherpfad: %s\n\n", $gameSystem->getFileSystem()->getPath());
