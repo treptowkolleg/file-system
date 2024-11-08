@@ -9,15 +9,13 @@ class FileSystem
 
     public function __construct(string $path) {
 
+        $path = trim($path,"/");
         if(!is_dir($dirPath = ROOT_PATH.$path)){
             if(!mkdir($dirPath, recursive: true)) {
                 exit("Fehler beim Erstellen des Ordners $dirPath");
             }
         }
-        // Slash ans Ende anfügen, falls nicht vorhanden
-        $dirPath = rtrim($dirPath,"/").'/';
-
-        $this->path = str_replace("/", DIRECTORY_SEPARATOR, $dirPath);
+        $this->path = str_replace("/", DIRECTORY_SEPARATOR, $dirPath.DIRECTORY_SEPARATOR);
     }
 
     public function readAsStream(string $file): void
