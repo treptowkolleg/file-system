@@ -48,4 +48,4 @@ $saveGameContent[] = "Ich bin eine neue Zeile!";
 $input = readline("Daten: ");
 $saveGameContent[] = $input;
 
-$fileSystem->putFile("test.txt", $saveGameContent);
+$fileSystem->putFileContentFromArray("test.txt", $saveGameContent);

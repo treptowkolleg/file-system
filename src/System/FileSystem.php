@@ -34,26 +34,31 @@ class FileSystem
         return $bytesWritten;
     }
 
-    public function getFileContentAsArray(string $file, bool $skipEmptyLines = true): ?array
+    public function getFileContentAsArray(string $file, bool $skipEmptyLines = true): bool|array
     {
         $filePath = $this->getFilePath($file);
 
-        if(!file_exists($filePath)) return null;
+        if(!file_exists($filePath)) return false;
         if($skipEmptyLines) return file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         else return file($filePath, FILE_IGNORE_NEW_LINES);
     }
 
-    public function getFileContentAsString(string $file): ?string
+    public function getFileContentAsString(string $file): bool|string
     {
         $filePath = $this->getFilePath($file);
 
-        if(!file_exists($filePath)) return null;
+        if(!file_exists($filePath)) return false;
         return file_get_contents($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     }
 
-    public function putFile(string $file, array $content = []): bool|int
+    public function putFileContentFromArray(string $file, array $content = []): bool|int
     {
         return file_put_contents($this->getFilePath($file), implode("\n", $content) );
+    }
+
+    public function putFileContentFromString(string $file, string $content = ""): bool|int
+    {
+        return file_put_contents($this->getFilePath($file), $content);
     }
 
     private function getFilePath(string $file): string
