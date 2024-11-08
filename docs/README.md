@@ -73,8 +73,13 @@ wir die magischen Methoden ``__serialize()`` und ``__unserialize(data)``:
 ````php
 <?php
 
-class Object
+class Character
 {
+
+    private string $attrib1 = "Held";
+    private int $attrib2 = 340;
+    private array $attrib3 = ["Holzschwert","Schild","Heiltrank"];
+    
     // Objektzustand speichern
     public function __serialize(): array
     {
