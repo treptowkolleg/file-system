@@ -3,6 +3,15 @@
 Übungsprojekt zum Einlesen und Schreiben von Dateien. Nützlich,
 wenn man beispielsweise Spielstände speichern oder laden möchte.
 
+<!-- TOC -->
+* [PHP und das Dateisystem](#php-und-das-dateisystem)
+  * [Befehlsreferenz](#befehlsreferenz)
+  * [Stream, String oder Array](#stream-string-oder-array)
+    * [Stream](#stream)
+    * [Array](#array)
+    * [String](#string)
+<!-- TOC -->
+
 ## Befehlsreferenz
 
 - [Dateisystem](https://www.php.net/manual/en/ref.filesystem.php)
