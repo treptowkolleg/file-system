@@ -66,3 +66,53 @@ $trimmed = file('datei.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 $homepage = file_get_contents('https://www.example.com/');
 echo $homepage;
 ````
+
+Wir können übrigens PHP-Objekte als ``string`` speichern. Dafür implementieren
+wir die magischen Methoden ``__serialize()`` und ``__unserialize(data)``:
+
+````php
+<?php
+
+class Object
+{
+    // Objektzustand speichern
+    public function __serialize(): array
+    {
+        // Festlegen, welche Attribute gespeichert werden sollen
+        return [
+                $this->attrib1,
+                $this->attrib2,
+                $this->attrib3,
+            ];
+    }
+    
+    // Objektzustand wiederherstellen
+    public function __unserialize(array $data): void
+    {
+        // list() = $data; ist prima, wenn wir mehrere Attribute befüllen wollen
+        list(
+            $this->attrib1,
+            $this->attrib2,
+            $this->attrib3,
+            ) = $data
+        ;
+        
+        // alternativ:
+        $this->attrib1 = $data[0];
+        $this->attrib2 = $data[1];
+        $this->attrib3 = $data[2];
+    }
+    
+}
+````
+
+Nun können wir den Zustand des Objekts speichern oder laden (Spielstand):
+
+````php
+<?php
+// speichern
+file_put_contents("savegame.txt", serialize($object));
+
+// laden
+$object = unserialize("savegame.txt");
+````
