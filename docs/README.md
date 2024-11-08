@@ -41,3 +41,28 @@ function readAsStream(string $file): void
 ``fopen()`` benötigt als zweiten Parameter entweder ``w`` für **Schreiben**
 oder ``r`` für **Lesen**. Systeme, die zwischen Text- und Binärdateien unterscheiden,
 benötigen zusätzlich den Wert ``b`` für *binär*.
+
+### Array
+
+````php
+<?php
+// HTML-Quelle
+$lines = file('https://www.example.com/');
+
+// Für jede Zeile HTML-Code als HTML-Code ausgeben:
+foreach ($lines as $lineNum => $htmlCode) {
+    
+    echo "Line #<b>{$lineNum}</b> : " . htmlspecialchars($htmlCode) . "<br />\n";
+}
+
+// optionale Parameter: \n und leere Zeilen im Text ignorieren
+$trimmed = file('datei.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+````
+
+### String
+
+````php
+<?php
+$homepage = file_get_contents('https://www.example.com/');
+echo $homepage;
+````
