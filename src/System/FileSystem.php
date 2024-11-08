@@ -15,9 +15,9 @@ class FileSystem
             }
         }
         // Slash ans Ende anfügen, falls nicht vorhanden
-        $path = rtrim($path,"/").'/';
+        $dirPath = rtrim($dirPath,"/").'/';
 
-        $this->path = ROOT_PATH.str_replace("/", DIRECTORY_SEPARATOR, $path);
+        $this->path = str_replace("/", DIRECTORY_SEPARATOR, $dirPath);
     }
 
     public function readAsStream(string $file): void
