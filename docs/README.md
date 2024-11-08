@@ -24,18 +24,18 @@ dabei die Datei auf Steuerzeichen für Zeilenumbrüche und ähnliches.
 <?php
 
 function readAsStream(string $file): void
-    {
-        // Dateistream öffnen
-        $handle = fopen($this->path.$file, "rb");
-        if(!$handle) exit("Kann Datei nicht öffnen: ".$file);
-        // Solange das Ende der Datei nicht erreicht ist:
-        while(!feof($handle)) {
-            // Zeile ausgeben
-            echo fgets($handle);
-        }
-        // Stream schließen
-        fclose($handle);
+{
+    // Dateistream öffnen
+    $handle = fopen($this->path.$file, "rb");
+    if(!$handle) exit("Kann Datei nicht öffnen: ".$file);
+    // Solange das Ende der Datei nicht erreicht ist:
+    while(!feof($handle)) {
+        // Zeile ausgeben
+        echo fgets($handle);
     }
+    // Stream schließen
+    fclose($handle);
+}
 ````
 
 ``fopen()`` benötigt als zweiten Parameter entweder ``w`` für **Schreiben**
