@@ -121,5 +121,5 @@ Nun können wir den Zustand des Objekts speichern oder laden (Spielstand):
 file_put_contents("savegame.txt", serialize($object));
 
 // laden
-$object = unserialize("savegame.txt");
+$object = unserialize(file_get_contents("savegame.txt"));
 ````
