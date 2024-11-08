@@ -62,7 +62,7 @@ class FileSystem
         return file_put_contents($this->getFilePath($file), $content);
     }
 
-    private function getFilePath(string $file): string
+    public function getFilePath(string $file): string
     {
         return $this->path.$file;
     }
