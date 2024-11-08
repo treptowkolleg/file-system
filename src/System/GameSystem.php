@@ -29,7 +29,7 @@ class GameSystem
     # Save & Load #
     ###############
 
-    public function saveGame(Game $gameObject): bool
+    public function saveGame(Game $gameObject): bool|int
     {
         return $this->fileSystem->putFileContentFromString($this->saveFile, serialize($gameObject));
     }
