@@ -31,7 +31,7 @@ class FileSystem
         fclose($handle);
     }
 
-    public function writeAsStrem(string $file, string $content = ""): bool|int
+    public function writeAsStream(string $file, string $content = ""): bool|int
     {
         $handle = fopen($path = $this->getFilePath($file), "wb");
         if(!$handle) exit("Kann Datei nicht schreiben: ".$path);
