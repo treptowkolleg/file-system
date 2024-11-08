@@ -2,11 +2,37 @@
 
 use App\Game;
 use App\Setup;
-use App\System\FileSystem;
+
+use App\System\{FileSystem, GameSystem};
 
 require "vendor/autoload.php";
 
 new Setup();
+
+##################
+# Zuhause erstellt
+
+// Dient dem Laden und Speichern des Spiels
+$gameSystem = new GameSystem();
+
+if(!$game = $gameSystem->loadGame()) {
+    $game = new Game();
+}
+
+echo "Hallo {$game->getCharName()}!\n";
+
+$username =readline("Name: ");
+if($username != "nein") {
+    $game->setCharName($username);
+}
+
+$speichern = readline("Speichern: ");
+if($speichern == "ja") {
+    $gameSystem->saveGame($game);
+}
+
+####################
+# Am Kolleg erstellt
 
 $fileSystem = new FileSystem("data/");
 
@@ -21,7 +47,7 @@ if(!$game) {
     $game = new Game();
 }
 
-echo "Hallo {$game->getCharName()}!\n";
+
 
 $username =readline("Name: ");
 if($username != "nein") {
