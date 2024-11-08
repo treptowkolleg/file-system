@@ -43,20 +43,21 @@ class FileSystem
         else return file($filePath, FILE_IGNORE_NEW_LINES);
     }
 
-    public function getFileContentAsString(string $file): bool|string
+    public function getFileContentAsString(string $file, bool $skipEmptyLines = true): bool|string
     {
         $filePath = $this->getFilePath($file);
 
         if(!file_exists($filePath)) return false;
-        return file_get_contents($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        if($skipEmptyLines) return file_get_contents($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        else return file_get_contents($filePath, FILE_IGNORE_NEW_LINES);
     }
 
-    public function putFileContentFromArray(string $file, array $content = []): bool|int
+    public function putFileContentFromArray(string $file, array $content): bool|int
     {
         return file_put_contents($this->getFilePath($file), implode("\n", $content) );
     }
 
-    public function putFileContentFromString(string $file, string $content = ""): bool|int
+    public function putFileContentFromString(string $file, string $content): bool|int
     {
         return file_put_contents($this->getFilePath($file), $content);
     }
