@@ -13,9 +13,8 @@ class FileSystem
 
     public function readAsStream(string $file): void
     {
-        $handle = fopen($this->path.$file, "rb");
-
-        if(!$handle) exit("Kann Datei nicht öffnen: ".$file);
+        $handle = fopen($path = $this->getFilePath($file), "rb");
+        if(!$handle) exit("Kann Datei nicht öffnen: ".$path);
 
         $i = 1;
         while(!feof($handle)) {
@@ -25,17 +24,41 @@ class FileSystem
         fclose($handle);
     }
 
-    public function getFileAsArray( string $file): array
+    public function writeAsStrem(string $file, string $content = ""): bool|int
     {
-        $filePath = $this->path.$file;
+        $handle = fopen($path = $this->getFilePath($file), "wb");
+        if(!$handle) exit("Kann Datei nicht schreiben: ".$path);
 
-        if(!file_exists($filePath)) return [];
-        return file($filePath, FILE_IGNORE_NEW_LINES);
+        $bytesWritten = fputs($handle, $content);
+        fclose($handle);
+        return $bytesWritten;
     }
 
-    public function putFile(string $file, array $content = []): void
+    public function getFileContentAsArray(string $file, bool $skipEmptyLines = true): ?array
     {
-        file_put_contents($this->path.$file, implode("\n", $content) );
+        $filePath = $this->getFilePath($file);
+
+        if(!file_exists($filePath)) return null;
+        if($skipEmptyLines) return file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        else return file($filePath, FILE_IGNORE_NEW_LINES);
+    }
+
+    public function getFileContentAsString(string $file): ?string
+    {
+        $filePath = $this->getFilePath($file);
+
+        if(!file_exists($filePath)) return null;
+        return file_get_contents($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    }
+
+    public function putFile(string $file, array $content = []): bool|int
+    {
+        return file_put_contents($this->getFilePath($file), implode("\n", $content) );
+    }
+
+    private function getFilePath(string $file): string
+    {
+        return $this->path.$file;
     }
 
 }

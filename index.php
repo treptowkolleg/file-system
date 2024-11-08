@@ -35,11 +35,11 @@ if($speichern == "ja") {
 
 
 if(file_exists("./data/test2.txt")) {
-    $spielstand = $fileSystem->getFileAsArray("test2.txt");
+    $spielstand = $fileSystem->getFileContentAsArray("test2.txt");
 } else {
     file_put_contents("./data/test2.txt", "Neuer Spielstand");
 }
-$saveGameContent = $fileSystem->getFileAsArray("test.txt");
+$saveGameContent = $fileSystem->getFileContentAsArray("test.txt");
 
 print_r($saveGameContent);
 
