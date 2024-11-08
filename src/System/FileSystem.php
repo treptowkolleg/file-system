@@ -74,4 +74,9 @@ class FileSystem
         return $this->path.$file;
     }
 
+    public function getPath(): string
+    {
+        return $this->path;
+    }
+
 }

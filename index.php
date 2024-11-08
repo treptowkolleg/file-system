@@ -19,6 +19,9 @@ if(!$game = $gameSystem->loadGame()) {
     $game = new Game();
 }
 
+// Pfad der Spielstände ausgeben:
+echo sprintf("Speicherpfad: %s\n\n", $gameSystem->getFileSystem()->getPath());
+
 echo "Hallo {$game->getCharName()}!\n";
 
 $username =readline("Name: ");

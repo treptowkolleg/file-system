@@ -39,5 +39,9 @@ class GameSystem
         return unserialize($this->fileSystem->getFileContentAsString($this->saveFile));
     }
 
+    public function getFileSystem(): FileSystem
+    {
+        return $this->fileSystem;
+    }
 
 }
