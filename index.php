@@ -34,7 +34,7 @@ if($speichern == "ja") {
     }
 
 }
-
+exit();
 ####################
 # Am Kolleg erstellt
 
