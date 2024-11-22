@@ -19,9 +19,9 @@ class GameSystem
      * @param string $saveDir
      * @param string $file
      */
-    public function __construct(string $saveDir = "data/game/save/user", string $file = "save.txt")
+    public function __construct(string $saveDir = "data/game/save/user", string $file = "save.txt", bool $useUserDir = false)
     {
-        $this->fileSystem = new FileSystem($saveDir);
+        $this->fileSystem = new FileSystem($saveDir, $useUserDir);
         $this->saveFile = $file;
     }
 

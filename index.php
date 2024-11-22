@@ -13,7 +13,7 @@ new Setup();
 # Zuhause erstellt
 
 // Dient dem Laden und Speichern des Spiels
-$gameSystem = new GameSystem();
+$gameSystem = new GameSystem("savegame/s001","x.txt");
 
 if(!$game = $gameSystem->loadGame()) $game = new Game();
 
@@ -43,6 +43,8 @@ $fileSystem = new FileSystem("data/");
 $game = null;
 
 if(file_exists("./data/game.txt")) {
+
+
     $game = unserialize(file_get_contents("./data/game.txt"));
     echo "Spiel geladen!\n";
 }

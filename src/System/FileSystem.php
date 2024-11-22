@@ -7,10 +7,29 @@ class FileSystem
 
     private string $path;
 
-    public function __construct(string $path) {
+    public function __construct(string $path, bool $useUserDir = false) {
+
+        if($useUserDir) {
+            $env = getenv();
+
+            $root = false;
+            if (is_array($env)) {
+                # Windows
+                if(key_exists("HOMEDRIVE", $env) and array_key_exists("HOMEPATH", $env)) {
+                    $root = $env["HOMEDRIVE"] . $env["HOMEPATH"] . DIRECTORY_SEPARATOR;
+                }
+                # Linux, MacOS
+                if(key_exists("HOME", $env)) {
+                    $root = $env["HOME"] . DIRECTORY_SEPARATOR;
+                }
+            }
+        } else {
+            # Projektordner nutzen
+            $root = ROOT_PATH;
+        }
 
         $path = trim($path,"/");
-        if(!is_dir($dirPath = ROOT_PATH.$path)){
+        if(!is_dir($dirPath = $root.$path)){
             if(!mkdir($dirPath, recursive: true)) {
                 exit("Fehler beim Erstellen des Ordners $dirPath");
             }

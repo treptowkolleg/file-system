@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\System\FileSystem;
-
 class Game
 {
 
@@ -32,7 +30,7 @@ class Game
             $this->charName,
             $this->hp,
             $this->speed
-            ) = $data;
+            ) = $data;;
     }
 
     #####################
