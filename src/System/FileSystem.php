@@ -9,10 +9,11 @@ class FileSystem
 
     public function __construct(string $path, bool $useUserDir = false) {
 
-        if($useUserDir) {
-            $env = getenv();
+        $root = ROOT_PATH;
 
-            $root = false;
+        if($useUserDir) {
+            # Eigene Dateien-Ordner
+            $env = getenv();
             if (is_array($env)) {
                 # Windows
                 if(key_exists("HOMEDRIVE", $env) and array_key_exists("HOMEPATH", $env)) {
@@ -23,9 +24,6 @@ class FileSystem
                     $root = $env["HOME"] . DIRECTORY_SEPARATOR;
                 }
             }
-        } else {
-            # Projektordner nutzen
-            $root = ROOT_PATH;
         }
 
         $path = trim($path,"/");
