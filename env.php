@@ -74,16 +74,17 @@ class GameSystem {
         $this->path = $path . $subDir;
     }
 
-    function getPublicPath(): string
+    private function getPublicPath(): string
     {
         if ( array_key_exists("PUBLIC", getenv()) ) {
             return getenv("PUBLIC") . DIRECTORY_SEPARATOR;
         }  else {
-            exit("Nicht unter Windows!");
+            # Fallback
+            return $this->getRootPath();
         }
     }
 
-    function getRootPath(): string
+    private function getRootPath(): string
     {
         if(!defined('ROOT')) {
             $startFile = $_SERVER['PHP_SELF'];
@@ -95,14 +96,17 @@ class GameSystem {
         return ROOT;
     }
 
-    function getCustomPath(string $envKey = null): string
+    private function getCustomPath(string $envKey = null): string
     {
         if ( $envKey != null and array_key_exists($envKey, getenv()) ) {
             return getenv($envKey) . DIRECTORY_SEPARATOR;
         }  else {
-            exit("Env-Variable '$envKey' ist nicht definiert.!");
+            # Fallback
+            return $this->getRootPath();
         }
     }
+
+    # GETTER
 
     public function getPath(): string
     {
