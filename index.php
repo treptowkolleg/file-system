@@ -1,17 +1,13 @@
 <?php
 
 use App\Game;
-use App\Setup;
-
 use App\System\GameSystem;
 
 require "vendor/autoload.php";
 
-new Setup();
-
 $gameSystem = new GameSystem(Game::class,"savegame/s001", true);
 
-$game = $gameSystem->loadGame();
+$game = $gameSystem->loadOrInitGame();
 
 // Pfad der Spielstände ausgeben:
 echo sprintf("\nSpeicherpfad:\n%s\n\n", $gameSystem->getFileSystem()->getPath());

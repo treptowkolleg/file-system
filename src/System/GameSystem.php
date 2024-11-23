@@ -25,6 +25,9 @@ class GameSystem
      */
     public function __construct( string $class, string $saveDir = "savegame", bool $useUserDir = false)
     {
+        if (!defined("ROOT_PATH")) {
+            define("ROOT_PATH", realpath(dirname($_SERVER['PHP_SELF'])) . DIRECTORY_SEPARATOR);
+        }
         # Lade Konfiguration aus der Environment-Datei
         $envFileSystem = new FileSystem(ROOT_PATH);
         $file = null;
@@ -62,7 +65,7 @@ class GameSystem
         }
     }
 
-    public function loadGame(): object
+    public function loadOrInitGame(): object
     {
         if (!$game = unserialize($this->fileSystem->getFileContentAsString($this->class->getShortName()))) $game = new $this->className();
         return $game;
