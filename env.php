@@ -1,64 +1,9 @@
 <?php
 
-$env = getenv();
-
-echo phpinfo(INFO_ENVIRONMENT);
-
-$HOME = false;
-if (is_array($env)) {
-    # Windows
-    if(key_exists("HOMEDRIVE", $env) and array_key_exists("HOMEPATH", $env)) {
-        $HOME = $env["HOMEDRIVE"] . $env["HOMEPATH"] . DIRECTORY_SEPARATOR;
-    }
-    # Linux, MacOS
-    if(key_exists("HOME", $env)) {
-        $HOME = $env["HOME"] . DIRECTORY_SEPARATOR;
-    }
-}
-
-if($HOME) {
-    echo "Mein Benutzerordner liegt unter $HOME \n";
-} else {
-    echo "Ich benutze ein sehr ausgefallenes Betriebssystem\n";
-}
-
-
-$publicPath = getenv("PUBLIC");
-
-if($publicPath) {
-    $saveDir = $publicPath . DIRECTORY_SEPARATOR . "Documents" . DIRECTORY_SEPARATOR . "Spielstand" . DIRECTORY_SEPARATOR;
-} else {
-    exit("Dies ist nicht Windows!");
-}
-
-# ODER
-
-$env = getenv();
-$savePath = "Documents/Spielstand";
-
-if(array_key_exists("PUBLIC", $env)) {
-    # Slash vorne und hinten entfernen:
-    $savePath = trim($savePath,"/");
-
-    # Slashes durch System-Slashes ersetzen:
-    $savePath = str_replace("/", DIRECTORY_SEPARATOR, $savePath);
-
-    # Absoluten Pfad zum Speicherordner zusammensetzen:
-    $savePath = $env['PUBLIC'] . DIRECTORY_SEPARATOR . $savePath . DIRECTORY_SEPARATOR;
-}
-
-
-$env = [
-    #       array_key       array_value
-            "PUBLIC"    =>  "C:\Users\Public",
-            "HOMEDRIVE" =>  "C:"
-];
-
-
 enum Path {
-    case local;
-    case public;
-    case custom;
+    case localDir;
+    case publicDir;
+    case customDir;
 }
 
 class GameSystem {
@@ -67,11 +12,12 @@ class GameSystem {
     public function __construct(Path $path, string $subDir, string $customEnv = null)
     {
         $path = match ($path) {
-            Path::local => $this->getRootPath(),
-            Path::public => $this->getPublicPath(),
-            Path::custom => $this->getCustomPath($customEnv),
+            Path::localDir => $this->getRootPath(),
+            Path::publicDir => $this->getPublicPath(),
+            Path::customDir => $this->getCustomPath($customEnv),
         };
-        $this->path = $path . $subDir;
+        $this->path = $path;
+        $this->initSubDir($subDir);
     }
 
     private function getPublicPath(): string
@@ -106,6 +52,17 @@ class GameSystem {
         }
     }
 
+    private function initSubDir(string $subDir): void
+    {
+        $path = trim($subDir,"/");
+        if(!is_dir($dirPath = $this->path . $path)){
+            if(!mkdir($dirPath, recursive: true)) {
+                exit("Fehler beim Erstellen des Ordners $dirPath");
+            }
+        }
+        $this->path = str_replace("/", DIRECTORY_SEPARATOR, $dirPath.DIRECTORY_SEPARATOR);
+    }
+
     # GETTER
 
     public function getPath(): string
@@ -116,5 +73,7 @@ class GameSystem {
 }
 
 
-$gameSystem = new GameSystem(Path::custom, "Documents/Spielstand", "SAVEG");
+$gameSystem = new GameSystem(Path::customDir, "Documents/Spielstand", "SAVEG");
+
+echo $gameSystem->getPath();
 
