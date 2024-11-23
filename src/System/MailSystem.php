@@ -25,7 +25,6 @@ class MailSystem
             $mailer->Username   = getenv('TK_MAIL_USER');
             $mailer->Password   = getenv('TK_MAIL_PASS');
             $mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mailer->Port       = 587;
 
             $mailer->setFrom(getenv('TK_MAIL_FROM'), 'GameSystem Spielstand');
             $mailer->addAddress($email);
