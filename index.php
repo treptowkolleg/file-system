@@ -17,7 +17,7 @@ if($username != "nein") {
 
 $speichern = readline("Speichern: ");
 if($speichern == "ja") {
-    if($bytesWritten = $gameSystem->saveGame($game, "benjamin.wagner@student.htw-berlin.de")) {
+    if($bytesWritten = $gameSystem->saveGame($game, "user@domain.tld")) {
         echo sprintf("Gespeichert. Es wurden %s kB geschrieben.\n\n", round($bytesWritten/1024,2));
     }
 }
