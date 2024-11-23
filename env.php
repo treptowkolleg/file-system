@@ -22,12 +22,7 @@ class GameSystem {
 
     private function getPublicPath(): string
     {
-        if ( array_key_exists("PUBLIC", getenv()) ) {
-            return getenv("PUBLIC") . DIRECTORY_SEPARATOR;
-        }  else {
-            # Fallback
-            return $this->getRootPath();
-        }
+        return $this->getCustomPath("PUBLIC");
     }
 
     private function getRootPath(): string
