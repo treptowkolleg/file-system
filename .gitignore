@@ -1,4 +1,6 @@
 /.idea
+/savegame
 /vendor
+/var
 .env.local.php
 .env.local
