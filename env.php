@@ -28,11 +28,7 @@ class GameSystem {
     private function getRootPath(): string
     {
         if(!defined('ROOT')) {
-            $startFile = $_SERVER['PHP_SELF'];
-            $startFileDir = dirname($startFile);
-            $rootPath = realpath($startFileDir);
-            $completePath = $rootPath . DIRECTORY_SEPARATOR;
-            define('ROOT', $completePath);
+            define('ROOT', realpath(dirname($_SERVER['PHP_SELF'])) . DIRECTORY_SEPARATOR);
         }
         return ROOT;
     }
