@@ -9,11 +9,7 @@ $gameSystem = new GameSystem(Game::class,"savegame/s001", true);
 
 $game = $gameSystem->loadOrInitGame();
 
-// Pfad der Spielstände ausgeben:
-echo sprintf("\nSpeicherpfad:\n%s\n\n", $gameSystem->getFileSystem()->getPath());
-
 echo "Hallo {$game->getCharName()}!\n";
-
 $username =readline("Name: ");
 if($username != "nein") {
     $game->setCharName($username);
