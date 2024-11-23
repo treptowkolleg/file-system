@@ -2,9 +2,6 @@
 
 namespace App\System;
 
-use Exception;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 use ReflectionClass;
 use ReflectionException;
 
