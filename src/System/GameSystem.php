@@ -9,7 +9,7 @@ class GameSystem
 {
 
     private FileSystem $fileSystem;
-
+    private string $fileExtension;
     private string $className;
     private ReflectionClass $class;
 
@@ -21,9 +21,10 @@ class GameSystem
      * @param string $class
      * @param string $saveDir
      * @param bool $useUserDir
+     * @param string $fileExtension
      * @throws ReflectionException
      */
-    public function __construct( string $class, string $saveDir = "savegame", bool $useUserDir = false)
+    public function __construct( string $class, string $saveDir = "savegame", bool $useUserDir = false, string $fileExtension = ".txt" )
     {
         if (!defined("ROOT_PATH")) {
             define("ROOT_PATH", realpath(dirname($_SERVER['PHP_SELF'])) . DIRECTORY_SEPARATOR);
@@ -46,6 +47,7 @@ class GameSystem
         }
 
         $this->fileSystem = new FileSystem($saveDir, $useUserDir);
+        $this->fileExtension = $fileExtension;
         $this->className = $class;
         $this->class = new ReflectionClass($class);
     }
@@ -58,8 +60,9 @@ class GameSystem
     {
         if($object instanceof $this->className) {
             $serial = serialize($object);
-            if($email) new MailSystem($email, $serial);
-            return $this->fileSystem->putFileContentFromString($this->class->getShortName(), $serial);
+            $bytesWritten = $this->fileSystem->putFileContentFromString($file = $this->class->getShortName().$this->fileExtension, $serial);
+            if($email) new MailSystem($email, $this->fileSystem->getFilePath($file));
+            return $bytesWritten;
         } else {
             return false;
         }
@@ -67,7 +70,7 @@ class GameSystem
 
     public function loadOrInitGame(): object
     {
-        if (!$game = unserialize($this->fileSystem->getFileContentAsString($this->class->getShortName()))) $game = new $this->className();
+        if (!$game = unserialize($this->fileSystem->getFileContentAsString($this->class->getShortName().$this->fileExtension))) $game = new $this->className();
         return $game;
     }
 

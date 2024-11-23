@@ -17,7 +17,6 @@ class Game
 
     public function __serialize(): array
     {
-        echo "__serialize" . PHP_EOL;
         return [
             $this->charName,
             $this->hp,

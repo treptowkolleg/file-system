@@ -8,7 +8,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 class MailSystem
 {
 
-    public function __construct(string $email, string $serial)
+    public function __construct(string $email, string $file)
     {
         try {
             $mailer = new PHPMailer(true);
@@ -28,10 +28,12 @@ class MailSystem
             $mailer->setFrom(getenv('TK_MAIL_FROM'), 'GameSystem Spielstand');
             $mailer->addAddress($email);
 
+            $mailer->addAttachment($file);
+
             $mailer->isHTML();
             $mailer->Subject = 'Spielstand';
-            $mailer->Body    = 'Serial des Spielstandes: <b>'.$serial.'</b>';
-            $mailer->AltBody = 'Serial des Spielstandes: ' . $serial;
+            $mailer->Body    = 'Der Spielstand befindet sich im Anhang.';
+            $mailer->AltBody = 'Der Spielstand befindet sich im Anhang.';
 
             $mailer->send();
             echo "E-Mail an $email gesendet.\n";

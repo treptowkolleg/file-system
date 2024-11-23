@@ -5,7 +5,7 @@ use App\System\GameSystem;
 
 require "vendor/autoload.php";
 
-$gameSystem = new GameSystem(Game::class,"savegame/s001", true);
+$gameSystem = new GameSystem(Game::class,"savegame/s001");
 
 $game = $gameSystem->loadOrInitGame();
 
