@@ -37,6 +37,7 @@ class GameSystem
         } elseif(file_exists(ROOT_PATH . ".env")) {
             $file = $envFileSystem->getFileContentAsArray(".env");
         }
+        echo "\nErfasste Umgebungsvariablen:\n";
         foreach ($file as $line) {
             if ($line[0] != "#") {
                 echo $line . PHP_EOL;

@@ -14,7 +14,7 @@ $gameSystem = new GameSystem(Game::class,"savegame/s001", true);
 $game = $gameSystem->loadGame();
 
 // Pfad der Spielstände ausgeben:
-echo sprintf("Speicherpfad: %s\n\n", $gameSystem->getFileSystem()->getPath());
+echo sprintf("\nSpeicherpfad:\n%s\n\n", $gameSystem->getFileSystem()->getPath());
 
 echo "Hallo {$game->getCharName()}!\n";
 
