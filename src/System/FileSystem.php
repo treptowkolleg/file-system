@@ -35,7 +35,7 @@ class FileSystem
             }
             $this->path = str_replace("/", DIRECTORY_SEPARATOR, $dirPath.DIRECTORY_SEPARATOR);
         } else {
-            $this->path = $root;
+            $this->path = $path;
         }
 
 
