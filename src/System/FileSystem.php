@@ -26,13 +26,19 @@ class FileSystem
             }
         }
 
-        $path = trim($path,"/");
-        if(!is_dir($dirPath = $root.$path)){
-            if(!mkdir($dirPath, recursive: true)) {
-                exit("Fehler beim Erstellen des Ordners $dirPath");
+        if($path != ROOT_PATH) {
+            $path = trim($path,"/");
+            if(!is_dir($dirPath = $root.$path)){
+                if(!mkdir($dirPath, recursive: true)) {
+                    exit("Fehler beim Erstellen des Ordners $dirPath");
+                }
             }
+            $this->path = str_replace("/", DIRECTORY_SEPARATOR, $dirPath.DIRECTORY_SEPARATOR);
+        } else {
+            $this->path = $root;
         }
-        $this->path = str_replace("/", DIRECTORY_SEPARATOR, $dirPath.DIRECTORY_SEPARATOR);
+
+
     }
 
     public function readAsStream(string $file): void
