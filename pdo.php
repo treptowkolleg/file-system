@@ -6,7 +6,13 @@ $db = 'tk01';
 $user = 'user';
 $pass = 'passwort';
 
-$query = "SELECT * FROM user WHERE firstname = :vorname AND lastname = :nachname";
+$query = <<<SQL
+SELECT *
+FROM user
+    WHERE
+        firstname = :vorname
+    AND lastname = :nachname
+SQL;
 
 $parameters = [
     'vorname' => 'Benjamin',
