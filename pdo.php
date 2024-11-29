@@ -6,6 +6,7 @@ $db = 'tk01';
 $user = 'user';
 $pass = 'passwort';
 
+// mit der heredoc-Schreibweise können wir unsere Abfrage übersichtlicher notieren:
 $query = <<<SQL
 SELECT *
 FROM user
