@@ -2,21 +2,28 @@
 
 namespace App\Entity;
 
+
+
+use DateTime;
+use DateTimeImmutable;
+
 class Lehrkraft
 {
 
-    private int $persId;
+    private int $persnr;
     private string $name;
+    private string $geschlecht;
     private string $wohnort;
+    private int $geburtsjahr;
 
-    public function getPersId(): int
+    public function getPersnr(): int
     {
-        return $this->persId;
+        return $this->persnr;
     }
 
-    public function setPersId(int $persId): void
+    public function setPersnr(int $persnr): void
     {
-        $this->persId = $persId;
+        $this->persnr = $persnr;
     }
 
     public function getName(): string
@@ -29,6 +36,16 @@ class Lehrkraft
         $this->name = $name;
     }
 
+    public function getGeschlecht(): string
+    {
+        return $this->geschlecht;
+    }
+
+    public function setGeschlecht(string $geschlecht): void
+    {
+        $this->geschlecht = $geschlecht;
+    }
+
     public function getWohnort(): string
     {
         return $this->wohnort;
@@ -38,5 +55,16 @@ class Lehrkraft
     {
         $this->wohnort = $wohnort;
     }
+
+    public function getGeburtsjahr(): DateTimeImmutable
+    {
+        return DateTimeImmutable::createFromFormat('Y', $this->geburtsjahr);
+    }
+
+    public function setGeburtsjahr(int $geburtsjahr): void
+    {
+        $this->geburtsjahr = $geburtsjahr;
+    }
+
 
 }

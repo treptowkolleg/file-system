@@ -13,22 +13,21 @@ $db = 'xxx';
 $user = 'xxx';
 $pass = 'xxx';
 
-
 $query = <<<SQL
-select name, wohnort
+select *
 from lehrkraft
     order by wohnort, name
 SQL;
 
 $db = new Database($host, $user, $pass, $db);
 
-$result = $db->setQuery($query)->fetchAll(PDO::FETCH_OBJ, Lehrkraft::class);
+$results = $db->fetchAllAsObject(Lehrkraft::class);
 
-foreach ($result as $lehrkraft) {
+foreach ($results as $lehrkraft) {
     /**
      * @var Lehrkraft $lehrkraft
      */
-    echo $lehrkraft->getName() . ", wohnend in " . $lehrkraft->getWohnort() . "\n";
+    echo "{$lehrkraft->getName()}, geboren in {$lehrkraft->getWohnort()} im Jahr {$lehrkraft->getGeburtsjahr()->format("Y")}\n";
 }
 
 

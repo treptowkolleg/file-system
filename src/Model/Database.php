@@ -5,6 +5,8 @@ namespace App\Model;
 use PDO;
 use PDOException;
 use PDOStatement;
+use ReflectionClass;
+use ReflectionException;
 
 class Database
 {
@@ -30,6 +32,7 @@ class Database
                 "mysql:host={$this->host};dbname={$this->database}",
                 $this->username, $this->password
             );
+            $this->pdo->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
@@ -65,6 +68,25 @@ class Database
             // Array mit Objekten (siehe Parameter $class)
             PDO::FETCH_OBJ => $this->statement->fetchAll(PDO::FETCH_CLASS, $class),
         };
+    }
+
+    public function fetchAllAsObject(string $class): array
+    {
+        try {
+            $refClass = new ReflectionClass($class);
+            $columns = [];
+
+            foreach ($refClass->getProperties() as $property) {
+                $columns[] = strtolower($property->getName()) . " AS " . $property->getName();
+            }
+
+            $query = "SELECT " . implode(", ", $columns) . " FROM " . strtolower($refClass->getShortName());
+            $this->setQuery($query)->execute();
+
+            return $this->statement->fetchAll(PDO::FETCH_CLASS, $class);
+        } catch (ReflectionException $e) {
+            exit($e->getMessage());
+        }
     }
 
 }
