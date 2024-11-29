@@ -13,8 +13,9 @@ $parameters = [
     'nachname' => 'Wagner'
 ];
 
-// PHP-Database-Objekt instantiieren
+
 try {
+    // PHP-Database-Objekt instantiieren
     $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
 
     // Abfrage vorbereiten
@@ -25,18 +26,20 @@ try {
         $statement->bindValue($param, $value);
     }
 
-// Abfrage mit Suchparametern ausführen
+    // Abfrage mit gebundenen Suchparametern ausführen
     $statement->execute();
 
-// Ergebnis in Array speichern
+    // Ergebnis in Array speichern
     $result = $statement->fetchAll();
 
-// Array ausgeben
-    print_r($result);
 } catch (PDOException $e) {
     print "Error!: " . $e->getMessage() . "\n";
 }
 
+if(!isset($result)) exit("Das Programm wurde vorzeitig beendet!");
+
+// Nun Ergebnis verarbeiten
+print_r($result);
 
 
 
